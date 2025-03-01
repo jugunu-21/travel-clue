@@ -125,10 +125,27 @@ const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
       if (roomId) {
         gameService.joinRoom(storedUsername, roomId);
         websocketService.joinRoom(storedUsername, roomId);
-
         setRoomParticipants(gameService.getRoomScores(roomId));
       }
+    }
+
+    // Always set inviter data if available, regardless of stored username
+    if (inviterUsername && inviterScore !== null) {
+      setInviterScoreData({
+        username: inviterUsername,
+        score: {
+          correct: inviterScore,
+          incorrect: 0,
+          total: inviterTotal || inviterScore,
+        },
+        beaten: false
+      });
     } else if (inviterUsername) {
+      const inviterScoreFromService = gameService.getScore(inviterUsername);
+      setInviterScoreData(inviterScoreFromService);
+    }
+
+    if (!storedUsername) {
       const guestUsername = "Guest_" + Math.random().toString(36).substring(2, 7);
 
       setGameState(prev => ({
@@ -141,26 +158,10 @@ const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
       if (roomId) {
         gameService.joinRoom(guestUsername, roomId);
         websocketService.joinRoom(guestUsername, roomId);
-
         setRoomParticipants(gameService.getRoomScores(roomId));
       }
 
       sessionStorage.setItem('globetrotter_username', guestUsername);
-
-      if (inviterUsername && inviterScore !== null) {
-        setInviterScoreData({
-          username: inviterUsername,
-          score: {
-            correct: inviterScore,
-            incorrect: 0,
-            total: inviterTotal || inviterScore,
-          },
-          beaten: false
-        });
-      } else if (inviterUsername) {
-        const inviterScoreFromService = gameService.getScore(inviterUsername);
-        setInviterScoreData(inviterScoreFromService);
-      }
     }
 
     loadNextQuestion();
@@ -177,7 +178,7 @@ const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
       websocketService.leaveRoom();
       websocketService.disconnect();
     };
-  }, [inviterUsername, roomId, inviterScore, inviterTotal]);
+  }, [inviterUsername, roomId, inviterScore, inviterTotal, gameState.roomId]);
 
   useEffect(() => {
     if (inviterScoreData &&

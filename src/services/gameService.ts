@@ -1,6 +1,5 @@
 import { Destination, UserScore, GameRoom } from '@/types';
 import { websocketService } from './websocketService';
-
 // This is a mock dataset that would normally be fetched from a backend
 const mockDestinations: Destination[] = [
   {
@@ -149,16 +148,16 @@ class GameService {
   async getRandomOptions(correctDestination: Destination, count: number = 4): Promise<Destination[]> {
     const destinations = await this.getDestinations();
     const filteredDestinations = destinations.filter(d => d.id !== correctDestination.id);
-    
+
     // Shuffle the array
     const shuffled = [...filteredDestinations].sort(() => 0.5 - Math.random());
-    
+
     // Take up to count-1 random destinations
     const randomOptions = shuffled.slice(0, count - 1);
-    
+
     // Add the correct destination
     const options = [...randomOptions, correctDestination];
-    
+
     // Shuffle again so the correct answer isn't always last
     return options.sort(() => 0.5 - Math.random());
   }
@@ -197,16 +196,16 @@ class GameService {
 
     const score = userScores[username].score;
     score.total += 1;
-    
+
     if (isCorrect) {
       score.correct += 1;
     } else {
       score.incorrect += 1;
     }
-    
+
     // Update timestamp
     userScores[username].timestamp = Date.now();
-    
+
     // If user is in a room, update the score via WebSocket
     if (roomId) {
       userScores[username].roomId = roomId;
@@ -264,14 +263,14 @@ class GameService {
 
   createRoom(username: string): string {
     const roomId = Math.random().toString(36).substring(2, 10);
-    
+
     gameRooms[roomId] = {
       id: roomId,
       participants: [],
       createdBy: username,
       createdAt: Date.now()
     };
-    
+
     return roomId;
   }
 
@@ -281,23 +280,23 @@ class GameService {
 
   joinRoom(username: string, roomId: string): boolean {
     const room = this.getRoom(roomId);
-    
+
     if (!room) return false;
-    
+
     // Check if user is already in the room
     const isInRoom = room.participants.some(p => p.username === username);
-    
+
     if (!isInRoom) {
       const userScore = this.getScore(username);
       userScore.roomId = roomId;
       room.participants.push(userScore);
-      
+
       // Update userScores record as well
       if (userScores[username]) {
         userScores[username].roomId = roomId;
       }
     }
-    
+
     return true;
   }
 
@@ -318,10 +317,10 @@ class GameService {
   generateShareUrl(username: string): string {
     // Create a new room for this challenge
     const roomId = this.createRoom(username);
-    
+
     // Add the user to the room
     this.joinRoom(username, roomId);
-    
+
     // In a real app, this would be a proper URL to your deployed app
     return `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&roomId=${encodeURIComponent(roomId)}`;
   }

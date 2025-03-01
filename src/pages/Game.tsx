@@ -31,7 +31,7 @@ const Game = () => {
                 score: {
                     correct: inviterScore,
                     incorrect: 0,
-                    total: inviterTotal || inviterScore, // Use inviterTotal if available, fallback to inviterScore
+                    total: inviterTotal || inviterScore,
                 },
                 beaten: false
             });
@@ -39,7 +39,7 @@ const Game = () => {
             const inviterScoreFromService = gameService.getScore(inviterUsername);
             setInviterScoreData(inviterScoreFromService);
         }
-    }, [navigate, inviterUsername]);
+    }, [navigate, inviterUsername, inviterScore, inviterTotal]);
 
     return (
         <div className="min-h-screen py-8 px-4 globe-bg">

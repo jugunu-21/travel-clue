@@ -19,8 +19,9 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
 
-  // Generate share URL that includes the user's score
-  const shareUrl = `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&score=${score.correct}&total=${score.total}`;
+  // Generate share URL that includes the user's score and percentage
+  const percentage = score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0;
+  const shareUrl = `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&score=${score.correct}&total=${score.total}&percentage=${percentage}`;
 
   const handleShare = async () => {
     // Open the custom dialog directly
@@ -50,9 +51,9 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
           <div className="space-y-6 mt-4">
             <div className="bg-white/80 p-6 rounded-lg text-center">
               <p className="text-lg font-semibold mb-1">{username}'s Score</p>
-              <p className="text-3xl font-bold gradient-text">{score.correct}/{score.total}</p>
+              <p className="text-3xl font-bold gradient-text">{percentage}%</p>
               <p className="text-sm text-gray-500 mt-1">
-                Correct answers: {score.correct} | Success rate: {score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0}%
+                Correct answers: {score.correct}/{score.total} ({percentage}% success rate)
               </p>
             </div>
 
@@ -68,7 +69,7 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <a
-                href={`https://wa.me/?text=${encodeURIComponent(`I scored ${score.correct}/${score.total} in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
+                href={`https://wa.me/?text=${encodeURIComponent(`I scored ${percentage}% (${score.correct}/${score.total}) in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#25D366] text-white py-2 px-4 rounded-lg text-center flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-colors"
@@ -76,7 +77,7 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
                 <span>Share on WhatsApp</span>
               </a>
               <a
-                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I scored ${score.correct}/${score.total} in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
+                href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I scored ${percentage}% (${score.correct}/${score.total}) in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="bg-[#1DA1F2] text-white py-2 px-4 rounded-lg text-center flex items-center justify-center space-x-2 hover:bg-opacity-90 transition-colors"

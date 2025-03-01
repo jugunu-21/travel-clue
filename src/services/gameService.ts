@@ -106,15 +106,15 @@ class GameService {
   getAllScores(): UserScore[] {
     return Object.values(userScores)
       .sort((a, b) => {
-        // First sort by correct answers
-        if (b.score.correct !== a.score.correct) {
-          return b.score.correct - a.score.correct;
-        }
-        // If tied, sort by percentage
-        const aPercentage = a.score.total > 0 ? a.score.correct / a.score.total : 0;
-        const bPercentage = b.score.total > 0 ? b.score.correct / b.score.total : 0;
+        // First sort by percentage
+        const aPercentage = a.score.total > 0 ? (a.score.correct / a.score.total) * 100 : 0;
+        const bPercentage = b.score.total > 0 ? (b.score.correct / b.score.total) * 100 : 0;
         if (bPercentage !== aPercentage) {
           return bPercentage - aPercentage;
+        }
+        // If percentage is tied, prefer the one who answered more questions
+        if (b.score.total !== a.score.total) {
+          return b.score.total - a.score.total;
         }
         // If still tied, sort by most recent
         return (b.timestamp || 0) - (a.timestamp || 0);
@@ -125,15 +125,15 @@ class GameService {
     return Object.values(userScores)
       .filter(score => score.roomId === roomId)
       .sort((a, b) => {
-        // First sort by correct answers
-        if (b.score.correct !== a.score.correct) {
-          return b.score.correct - a.score.correct;
-        }
-        // If tied, sort by percentage
-        const aPercentage = a.score.total > 0 ? a.score.correct / a.score.total : 0;
-        const bPercentage = b.score.total > 0 ? b.score.correct / b.score.total : 0;
+        // First sort by percentage
+        const aPercentage = a.score.total > 0 ? (a.score.correct / a.score.total) * 100 : 0;
+        const bPercentage = b.score.total > 0 ? (b.score.correct / b.score.total) * 100 : 0;
         if (bPercentage !== aPercentage) {
           return bPercentage - aPercentage;
+        }
+        // If percentage is tied, prefer the one who answered more questions
+        if (b.score.total !== a.score.total) {
+          return b.score.total - a.score.total;
         }
         // If still tied, sort by most recent
         return (b.timestamp || 0) - (a.timestamp || 0);

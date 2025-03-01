@@ -61,7 +61,19 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
               updatedParticipants.push(message.score);
             }
 
-            return updatedParticipants.sort((a, b) => b.score.correct - a.score.correct);
+            // Sort by percentage first
+            return updatedParticipants.sort((a, b) => {
+              const aPercentage = a.score.total > 0 ? (a.score.correct / a.score.total) * 100 : 0;
+              const bPercentage = b.score.total > 0 ? (b.score.correct / b.score.total) * 100 : 0;
+              if (bPercentage !== aPercentage) {
+                return bPercentage - aPercentage;
+              }
+              // If percentage is tied, prefer the one who answered more questions
+              if (b.score.total !== a.score.total) {
+                return b.score.total - a.score.total;
+              }
+              return 0;
+            });
           });
 
           if (inviterUsername && message.score.username === inviterUsername) {
@@ -69,9 +81,12 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
           }
 
           if (message.score.username !== gameState.username) {
+            const percentage = message.score.score.total > 0
+              ? Math.round((message.score.score.correct / message.score.score.total) * 100)
+              : 0;
             toast({
               title: "Score Updated",
-              description: `${message.score.username}'s score: ${message.score.score.correct}/${message.score.score.total}`,
+              description: `${message.score.username}'s score: ${percentage}% (${message.score.score.correct}/${message.score.score.total})`,
             });
           }
         }
@@ -184,23 +199,27 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
   useEffect(() => {
     if (inviterScoreData &&
       !inviterScoreData.beaten &&
-      gameState.score.correct > inviterScoreData.score.correct) {
+      gameState.score.total > 0) {
 
-      setInviterScoreData(prev => prev ? { ...prev, beaten: true } : null);
+      const currentPercentage = (gameState.score.correct / gameState.score.total) * 100;
+      const inviterPercentage = (inviterScoreData.score.correct / inviterScoreData.score.total) * 100;
 
-      setShowCelebration(true);
+      if (currentPercentage > inviterPercentage) {
+        setInviterScoreData(prev => prev ? { ...prev, beaten: true } : null);
+        setShowCelebration(true);
 
-      toast({
-        title: "🎉 New Achievement!",
-        description: `You beat ${inviterScoreData.username}'s score of ${inviterScoreData.score.correct}!`,
-        variant: "default",
-      });
+        toast({
+          title: "🎉 New Achievement!",
+          description: `You beat ${inviterScoreData.username}'s score of ${Math.round(inviterPercentage)}%!`,
+          variant: "default",
+        });
 
-      setTimeout(() => {
-        setShowCelebration(false);
-      }, 5000);
+        setTimeout(() => {
+          setShowCelebration(false);
+        }, 5000);
+      }
     }
-  }, [gameState.score.correct, inviterScoreData, toast]);
+  }, [gameState.score, inviterScoreData, toast]);
 
   const loadNextQuestion = async () => {
     setGameState(prev => ({
@@ -345,7 +364,10 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
               <Trophy className={`h-5 w-5 ${inviterScoreData.beaten ? 'text-green-500' : 'text-amber-500'} mr-2`} />
               <p>
                 <span className="font-medium">{inviterUsername}</span> has challenged you! Their score:
-                <span className="font-bold ml-1">{inviterScoreData.score.correct}/{inviterScoreData.score.total || inviterScoreData.score.correct}</span>
+                <span className="font-bold ml-1">
+                  {Math.round((inviterScoreData.score.correct / inviterScoreData.score.total) * 100)}%
+                  ({inviterScoreData.score.correct}/{inviterScoreData.score.total})
+                </span>
               </p>
             </div>
 

@@ -23,26 +23,8 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
   const shareUrl = `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&score=${score.correct}&total=${score.total}`;
 
   const handleShare = async () => {
-    // Try to use the Web Share API if available
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Globetrotter Challenge',
-          text: `I scored ${score.correct}/${score.total} in the Globetrotter Challenge! Can you beat me?`,
-          url: shareUrl,
-        });
-        toast({
-          title: "Shared successfully!",
-          description: "Your challenge has been shared.",
-        });
-      } catch (error) {
-        console.error('Error sharing:', error);
-        setIsOpen(true);
-      }
-    } else {
-      // Fallback to dialog if Web Share API is not available
-      setIsOpen(true);
-    }
+    // Open the custom dialog directly
+    setIsOpen(true);
   };
 
   return (

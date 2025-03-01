@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
@@ -19,9 +18,9 @@ interface ShareChallengeProps {
 const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const { toast } = useToast();
-  
+
   // Generate share URL that includes the user's score
-  const shareUrl = `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&score=${score.correct}`;
+  const shareUrl = `${window.location.origin}/game?inviter=${encodeURIComponent(username)}&score=${score.correct}&total=${score.total}`;
 
   const handleShare = async () => {
     // Try to use the Web Share API if available
@@ -48,8 +47,8 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
 
   return (
     <>
-      <Button 
-        variant="outline" 
+      <Button
+        variant="outline"
         className="flex items-center space-x-2 hover:bg-primary/5"
         onClick={handleShare}
       >
@@ -65,7 +64,7 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
               Share this link with your friends to challenge them to beat your score!
             </DialogDescription>
           </DialogHeader>
-          
+
           <div className="space-y-6 mt-4">
             <div className="bg-white/80 p-6 rounded-lg text-center">
               <p className="text-lg font-semibold mb-1">{username}'s Score</p>
@@ -74,7 +73,7 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
                 Correct answers: {score.correct} | Success rate: {score.total > 0 ? Math.round((score.correct / score.total) * 100) : 0}%
               </p>
             </div>
-            
+
             <div className="space-y-3">
               <p className="text-sm text-gray-600">Copy this link and share it with your friends:</p>
               <div className="flex items-center">
@@ -84,9 +83,9 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
                 <CopyLinkButton textToCopy={shareUrl} />
               </div>
             </div>
-            
+
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <a 
+              <a
                 href={`https://wa.me/?text=${encodeURIComponent(`I scored ${score.correct}/${score.total} in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -94,7 +93,7 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
               >
                 <span>Share on WhatsApp</span>
               </a>
-              <a 
+              <a
                 href={`https://twitter.com/intent/tweet?text=${encodeURIComponent(`I scored ${score.correct}/${score.total} in the Globetrotter Challenge! Can you beat me? ${shareUrl}`)}`}
                 target="_blank"
                 rel="noopener noreferrer"

@@ -14,15 +14,16 @@ import { useToast } from '@/components/ui/use-toast';
 
 interface GameContainerProps {
   inviterScore?: number | null;
+  inviterTotal?: number | null;
 }
 
-const GameContainer = ({ inviterScore }: GameContainerProps) => {
+const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
   const [searchParams] = useSearchParams();
   const inviterUsername = searchParams.get('inviter');
   const roomId = searchParams.get('roomId');
   const { toast } = useToast();
   const scoreBeatenRef = useRef(false);
-  
+
   const [gameState, setGameState] = useState<GameState>({
     currentDestination: null,
     options: [],
@@ -40,7 +41,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
     loading: true,
     roomId: roomId || undefined
   });
-  
+
   const [inviterScoreData, setInviterScoreData] = useState<UserScore | null>(null);
   const [roomParticipants, setRoomParticipants] = useState<UserScore[]>([]);
   const [showCelebration, setShowCelebration] = useState(false);
@@ -52,20 +53,20 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
           setRoomParticipants(prevParticipants => {
             const updatedParticipants = [...prevParticipants];
             const index = updatedParticipants.findIndex(p => p.username === message.score.username);
-            
+
             if (index !== -1) {
               updatedParticipants[index] = message.score;
             } else {
               updatedParticipants.push(message.score);
             }
-            
+
             return updatedParticipants.sort((a, b) => b.score.correct - a.score.correct);
           });
-          
+
           if (inviterUsername && message.score.username === inviterUsername) {
             setInviterScoreData(message.score);
           }
-          
+
           if (message.score.username !== gameState.username) {
             toast({
               title: "Score Updated",
@@ -74,7 +75,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
           }
         }
         break;
-        
+
       case 'join_room':
         if (message.roomId === gameState.roomId && message.username !== gameState.username) {
           toast({
@@ -86,11 +87,11 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
           }
         }
         break;
-        
+
       case 'room_data':
         setRoomParticipants(message.participants);
         break;
-        
+
       case 'leave_room':
         if (message.roomId === gameState.roomId) {
           toast({
@@ -109,50 +110,50 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
   useEffect(() => {
     websocketService.connect();
     const unsubscribe = websocketService.onMessage(handleWebSocketMessage);
-    
+
     const storedUsername = sessionStorage.getItem('globetrotter_username');
-    
+
     if (storedUsername) {
       const userScore = gameService.getScore(storedUsername);
-      
+
       setGameState(prev => ({
         ...prev,
         username: storedUsername,
         score: userScore.score
       }));
-      
+
       if (roomId) {
         gameService.joinRoom(storedUsername, roomId);
         websocketService.joinRoom(storedUsername, roomId);
-        
+
         setRoomParticipants(gameService.getRoomScores(roomId));
       }
     } else if (inviterUsername) {
       const guestUsername = "Guest_" + Math.random().toString(36).substring(2, 7);
-      
+
       setGameState(prev => ({
         ...prev,
         username: guestUsername
       }));
-      
+
       gameService.registerUser(guestUsername);
-      
+
       if (roomId) {
         gameService.joinRoom(guestUsername, roomId);
         websocketService.joinRoom(guestUsername, roomId);
-        
+
         setRoomParticipants(gameService.getRoomScores(roomId));
       }
-      
+
       sessionStorage.setItem('globetrotter_username', guestUsername);
-      
+
       if (inviterUsername && inviterScore !== null) {
         setInviterScoreData({
           username: inviterUsername,
           score: {
             correct: inviterScore,
             incorrect: 0,
-            total: inviterScore,
+            total: inviterTotal || inviterScore,
           },
           beaten: false
         });
@@ -161,38 +162,38 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
         setInviterScoreData(inviterScoreFromService);
       }
     }
-    
+
     loadNextQuestion();
-    
+
     const interval = setInterval(() => {
       if (gameState.roomId) {
         setRoomParticipants(gameService.getRoomScores(gameState.roomId));
       }
     }, 10000);
-    
+
     return () => {
       clearInterval(interval);
       unsubscribe();
       websocketService.leaveRoom();
       websocketService.disconnect();
     };
-  }, [inviterUsername, roomId, inviterScore]);
+  }, [inviterUsername, roomId, inviterScore, inviterTotal]);
 
   useEffect(() => {
-    if (inviterScoreData && 
-        !inviterScoreData.beaten && 
-        gameState.score.correct > inviterScoreData.score.correct) {
-      
+    if (inviterScoreData &&
+      !inviterScoreData.beaten &&
+      gameState.score.correct > inviterScoreData.score.correct) {
+
       setInviterScoreData(prev => prev ? { ...prev, beaten: true } : null);
-      
+
       setShowCelebration(true);
-      
+
       toast({
         title: "🎉 New Achievement!",
         description: `You beat ${inviterScoreData.username}'s score of ${inviterScoreData.score.correct}!`,
         variant: "default",
       });
-      
+
       setTimeout(() => {
         setShowCelebration(false);
       }, 5000);
@@ -210,13 +211,13 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
 
     try {
       const destination = await gameService.getRandomDestination();
-      
+
       const options = await gameService.getRandomOptions(destination);
-      
+
       const clue = await gameService.getClueByIndex(destination, 0);
-      
+
       const fact = await gameService.getRandomFact(destination);
-      
+
       setGameState(prev => ({
         ...prev,
         currentDestination: destination,
@@ -236,44 +237,42 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
 
   const handleSelectAnswer = (destinationId: string) => {
     const isCorrect = destinationId === gameState.currentDestination?.id;
-    
+
     const newScore = {
       ...gameState.score,
       total: gameState.score.total + 1,
       correct: isCorrect ? gameState.score.correct + 1 : gameState.score.correct,
       incorrect: !isCorrect ? gameState.score.incorrect + 1 : gameState.score.incorrect
     };
-    
+
     gameService.saveScore(gameState.username, isCorrect, gameState.roomId);
-    
+
     setGameState(prev => ({
       ...prev,
       selectedAnswer: destinationId,
       isCorrect,
       score: newScore
     }));
-    
-    updateHighScores();
   };
 
   const handleRequestHint = async () => {
     if (!gameState.currentDestination || gameState.selectedAnswer !== null) return;
-    
+
     const nextClueIndex = gameState.clueIndex + 1;
-    
+
     if (nextClueIndex < gameState.currentDestination.clues.length) {
       try {
         const nextClue = await gameService.getClueByIndex(
           gameState.currentDestination,
           nextClueIndex
         );
-        
+
         setGameState(prev => ({
           ...prev,
           displayedClue: nextClue,
           clueIndex: nextClueIndex
         }));
-        
+
         toast({
           title: "New hint revealed!",
           description: "Here's another clue to help you guess.",
@@ -290,7 +289,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
     }
   };
 
-  const hasMoreClues = gameState.currentDestination && 
+  const hasMoreClues = gameState.currentDestination &&
     gameState.clueIndex < gameState.currentDestination.clues.length - 1;
 
   return (
@@ -299,7 +298,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
         <div className="fixed inset-0 pointer-events-none z-50 flex items-center justify-center">
           <div className="celebration-container">
             {Array.from({ length: 50 }).map((_, i) => (
-              <div 
+              <div
                 key={i}
                 className="confetti animate-confetti"
                 style={{
@@ -325,7 +324,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
         <ScoreDisplay score={gameState.score} displayName="Your Score" />
         <ShareChallenge username={gameState.username} score={gameState.score} />
       </div>
-      
+
       {gameState.roomId && (
         <div className="glass-card p-4 animate-fade-in">
           <div className="flex items-center text-gray-700">
@@ -336,18 +335,18 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
           </div>
         </div>
       )}
-      
+
       {inviterScoreData && (
         <div className={`glass-card p-4 animate-fade-in ${inviterScoreData.beaten ? 'border-2 border-green-500' : ''}`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center text-gray-700">
               <Trophy className={`h-5 w-5 ${inviterScoreData.beaten ? 'text-green-500' : 'text-amber-500'} mr-2`} />
               <p>
-                <span className="font-medium">{inviterUsername}</span> has challenged you! Their score: 
+                <span className="font-medium">{inviterUsername}</span> has challenged you! Their score:
                 <span className="font-bold ml-1">{inviterScoreData.score.correct}/{inviterScoreData.score.total || inviterScoreData.score.correct}</span>
               </p>
             </div>
-            
+
             {inviterScoreData.beaten && (
               <div className="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full font-medium flex items-center">
                 <span>Beaten!</span> <Sparkles className="h-3 w-3 ml-1" />
@@ -356,24 +355,24 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
           </div>
         </div>
       )}
-      
+
       {gameState.roomId && roomParticipants.length > 0 && (
         <div className="mb-6">
-          <HighScores 
-            scores={roomParticipants} 
-            currentUsername={gameState.username} 
+          <HighScores
+            scores={roomParticipants}
+            currentUsername={gameState.username}
           />
         </div>
       )}
-      
+
       <div className="space-y-8">
-        <ClueCard 
-          clue={gameState.displayedClue} 
+        <ClueCard
+          clue={gameState.displayedClue}
           isLoading={gameState.loading}
           onRequestHint={handleRequestHint}
           hintsAvailable={hasMoreClues && gameState.selectedAnswer === null}
         />
-        
+
         <div className="space-y-2">
           <h3 className="text-lg font-medium text-gray-700">Where am I?</h3>
           <OptionButtons
@@ -384,7 +383,7 @@ const GameContainer = ({ inviterScore }: GameContainerProps) => {
             disabled={gameState.loading}
           />
         </div>
-        
+
         <ResultFeedback
           isCorrect={gameState.isCorrect}
           fact={gameState.displayedFact}

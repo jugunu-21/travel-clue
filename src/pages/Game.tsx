@@ -1,17 +1,19 @@
-
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import GameContainer from '@/components/GameContainer';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
+import { gameService } from '@/services/gameService';
 
 const Game = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+    const [inviterScoreData, setInviterScoreData] = useState(null);
 
     // Extract challenge parameters
     const inviterUsername = searchParams.get('inviter');
     const inviterScore = searchParams.get('score') ? parseInt(searchParams.get('score') || '0', 10) : null;
+    const inviterTotal = searchParams.get('total') ? parseInt(searchParams.get('total') || '0', 10) : null;
     const roomId = searchParams.get('roomId');
 
     useEffect(() => {
@@ -21,6 +23,21 @@ const Game = () => {
         // If not set and we're not coming from an invitation link, redirect to home
         if (!username && !inviterUsername) {
             navigate('/');
+        }
+
+        if (inviterUsername && inviterScore !== null) {
+            setInviterScoreData({
+                username: inviterUsername,
+                score: {
+                    correct: inviterScore,
+                    incorrect: 0,
+                    total: inviterTotal || inviterScore, // Use inviterTotal if available, fallback to inviterScore
+                },
+                beaten: false
+            });
+        } else if (inviterUsername) {
+            const inviterScoreFromService = gameService.getScore(inviterUsername);
+            setInviterScoreData(inviterScoreFromService);
         }
     }, [navigate, inviterUsername]);
 
@@ -40,7 +57,7 @@ const Game = () => {
                     <h1 className="text-2xl font-bold gradient-text">Globetrotter Challenge</h1>
                 </div>
 
-                <GameContainer inviterScore={inviterScore} />
+                <GameContainer inviterScore={inviterScore} inviterTotal={inviterTotal} />
             </div>
         </div>
     );

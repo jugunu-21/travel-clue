@@ -313,6 +313,22 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
   const hasMoreClues = gameState.currentDestination &&
     gameState.clueIndex < gameState.currentDestination.clues.length - 1;
 
+  const resetGame = () => {
+    setGameState(prev => ({
+      ...prev,
+      selectedAnswer: null,
+      isCorrect: null,
+      clueIndex: 0,
+      loading: true,
+      score: {
+        correct: 0,
+        incorrect: 0,
+        total: 0
+      }
+    }));
+    loadNextQuestion();
+  };
+
   return (
     <div className="w-full max-w-4xl mx-auto p-6 space-y-8 relative">
       {showCelebration && (
@@ -412,6 +428,8 @@ const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameCont
           isCorrect={gameState.isCorrect}
           fact={gameState.displayedFact}
           onNextQuestion={loadNextQuestion}
+          onPlayAgain={resetGame}
+          score={gameState.score}
         />
       </div>
     </div>

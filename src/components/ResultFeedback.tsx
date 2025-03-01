@@ -1,15 +1,20 @@
-
 import { useEffect, useState } from "react";
-import { Smile, Frown } from "lucide-react";
+import { Smile, Frown, RotateCcw } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 interface ResultFeedbackProps {
   isCorrect: boolean | null;
   fact: string;
   onNextQuestion: () => void;
+  onPlayAgain: () => void;
+  score: {
+    correct: number;
+    incorrect: number;
+    total: number;
+  };
 }
 
-const ResultFeedback = ({ isCorrect, fact, onNextQuestion }: ResultFeedbackProps) => {
+const ResultFeedback = ({ isCorrect, fact, onNextQuestion, onPlayAgain, score }: ResultFeedbackProps) => {
   const [confetti, setConfetti] = useState<JSX.Element[]>([]);
 
   useEffect(() => {
@@ -21,7 +26,7 @@ const ResultFeedback = ({ isCorrect, fact, onNextQuestion }: ResultFeedbackProps
         const size = Math.random() * 0.8 + 0.2;
         const delay = Math.random() * 0.5;
         const color = `hsl(${Math.random() * 360}, 70%, 50%)`;
-        
+
         newConfetti.push(
           <div
             key={i}
@@ -69,7 +74,7 @@ const ResultFeedback = ({ isCorrect, fact, onNextQuestion }: ResultFeedbackProps
             </>
           )}
         </div>
-        
+
         <div className="bg-white/50 rounded-lg p-4 mb-6">
           <div className="flex items-center mb-2">
             <div className="h-2 w-2 rounded-full bg-primary mr-2" />
@@ -77,10 +82,22 @@ const ResultFeedback = ({ isCorrect, fact, onNextQuestion }: ResultFeedbackProps
           </div>
           <p className="text-gray-800">{fact}</p>
         </div>
-        
-        <Button onClick={onNextQuestion} className="w-full">
-          Next Question
-        </Button>
+
+        <div className="flex flex-col sm:flex-row gap-3">
+          <Button onClick={onNextQuestion} className="flex-1">
+            Next Question
+          </Button>
+          {score.total > 0 && (
+            <Button
+              onClick={onPlayAgain}
+              variant="outline"
+              className="flex items-center gap-2"
+            >
+              <RotateCcw className="h-4 w-4" />
+              Play Again
+            </Button>
+          )}
+        </div>
       </div>
     </div>
   );

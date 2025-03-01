@@ -76,8 +76,8 @@ const ShareChallenge = ({ username, score }: ShareChallengeProps) => {
 
             <div className="space-y-3">
               <p className="text-sm text-gray-600">Copy this link and share it with your friends:</p>
-              <div className="flex items-center">
-                <div className="bg-white/60 p-3 rounded-l-lg border border-r-0 border-gray-200 flex-1 truncate text-gray-600 text-sm">
+              <div className="flex items-stretch">
+                <div className="bg-white/60 p-3 rounded-l-lg border border-r-0 border-gray-200 flex-1 text-gray-600 text-sm break-all">
                   {shareUrl}
                 </div>
                 <CopyLinkButton textToCopy={shareUrl} />

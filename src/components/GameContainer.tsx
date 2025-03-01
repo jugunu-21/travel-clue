@@ -15,9 +15,10 @@ import { useToast } from '@/components/ui/use-toast';
 interface GameContainerProps {
   inviterScore?: number | null;
   inviterTotal?: number | null;
+  currentUsername: string;
 }
 
-const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
+const GameContainer = ({ inviterScore, inviterTotal, currentUsername }: GameContainerProps) => {
   const [searchParams] = useSearchParams();
   const inviterUsername = searchParams.get('inviter');
   const roomId = searchParams.get('roomId');
@@ -34,7 +35,7 @@ const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
       incorrect: 0,
       total: 0
     },
-    username: '',
+    username: currentUsername,
     displayedClue: '',
     displayedFact: '',
     clueIndex: 0,
@@ -322,8 +323,8 @@ const GameContainer = ({ inviterScore, inviterTotal }: GameContainerProps) => {
       )}
 
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-        <ScoreDisplay score={gameState.score} displayName="Your Score" />
-        <ShareChallenge username={gameState.username} score={gameState.score} />
+        <ScoreDisplay score={gameState.score} displayName={`${currentUsername}'s Score`} />
+        <ShareChallenge username={currentUsername} score={gameState.score} />
       </div>
 
       {gameState.roomId && (

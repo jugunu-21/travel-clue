@@ -1,69 +1,71 @@
-# Welcome to your Lovable project
+# Travel Clue 🌍 ✈️
 
-## Project info
+A modern travel companion application that helps users explore and plan their adventures.
 
-**URL**: https://lovable.dev/projects/ada6c8fc-3b5d-47e7-bfca-cd7735159746
+## 🔗 Quick Links
 
-## How can I edit this code?
+- **Live Demo:** [https://travel-clue.vercel.app/](https://travel-clue.vercel.app/)
+- **GitHub Repository:** [https://github.com/jugunu-21/travel-clue](https://github.com/jugunu-21/travel-clue)
 
-There are several ways of editing your application.
+## 🚀 Features
 
-**Use Lovable**
+- Modern and responsive user interface
+- Interactive travel planning tools
+- User-friendly navigation
+- Beautiful UI components with shadcn-ui
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/ada6c8fc-3b5d-47e7-bfca-cd7735159746) and start prompting.
+## 🛠️ Technologies Used
 
-Changes made via Lovable will be committed automatically to this repo.
+- **Frontend Framework:** React with Vite
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS
+- **UI Components:** shadcn-ui
+- **Deployment:** Vercel
 
-**Use your preferred IDE**
+## 🏃‍♂️ Getting Started
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/jugunu-21/travel-clue.git
+   cd travel-clue
+   ```
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Follow these steps:
+3. **Run the development server**
+   ```bash
+   npm run dev
+   ```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+4. **Open your browser**
+   Navigate to `http://localhost:5173` to see the application running locally.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+## 🔧 Environment Setup
 
-# Step 3: Install the necessary dependencies.
-npm i
+Make sure you have the following installed:
+- Node.js (v16 or higher)
+- npm (v7 or higher)
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+## 🤝 Contributing
 
-**Edit a file directly in GitHub**
+Contributions are welcome! Please feel free to submit a Pull Request.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
 
-**Use GitHub Codespaces**
+## 📝 License
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+This project is open source and available under the [MIT License](LICENSE).
 
-## What technologies are used for this project?
+## 🌟 Acknowledgments
 
-This project is built with .
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/ada6c8fc-3b5d-47e7-bfca-cd7735159746) and click on Share -> Publish.
-
-## I want to use a custom domain - is that possible?
-
-We don't support custom domains (yet). If you want to deploy your project under your own domain then we recommend using Netlify. Visit our docs for more details: [Custom domains](https://docs.lovable.dev/tips-tricks/custom-domain/)
+- Built with [Vite](https://vitejs.dev/)
+- UI components from [shadcn/ui](https://ui.shadcn.com/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Deployed on [Vercel](https://vercel.com/)

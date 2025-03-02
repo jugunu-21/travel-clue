@@ -7,7 +7,6 @@ import { gameService } from '@/services/gameService';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-
 const Game = () => {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
@@ -16,17 +15,13 @@ const Game = () => {
     const [username, setUsername] = useState('');
     const [isUsernameSet, setIsUsernameSet] = useState(false);
     const { toast } = useToast();
-
-    // Extract challenge parameters
     const inviterUsername = searchParams.get('inviter');
     const inviterScore = searchParams.get('score') ? parseInt(searchParams.get('score') || '0', 10) : null;
     const inviterTotal = searchParams.get('total') ? parseInt(searchParams.get('total') || '0', 10) : null;
     const roomId = searchParams.get('roomId');
-
     useEffect(() => {
         // Check if username is set in session storage
         const storedUsername = sessionStorage.getItem('globetrotter_username');
-
         if (storedUsername) {
             setIsUsernameSet(true);
             return;

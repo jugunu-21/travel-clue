@@ -2,6 +2,9 @@
 
 A modern travel companion application that helps users explore and plan their adventures.
 
+## 🎥 Demo Video
+[![Travel Clue Demo](https://cdn.loom.com/sessions/thumbnails/9ea6f4323bc142f7b391dfe9a7511919-with-play.gif)](https://www.loom.com/share/9ea6f4323bc142f7b391dfe9a7511919?sid=aac419b4-61d0-4535-ad74-4b99dc5cd4cf)
+
 ## 🔗 Quick Links
 
 - **Live Demo:** [https://travel-clue.vercel.app/](https://travel-clue.vercel.app/)

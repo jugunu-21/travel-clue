@@ -3,108 +3,153 @@ import { Destination } from '@/types';
 export const mockDestinations: Destination[] = [
     {
         id: "1",
-        name: "Eiffel Tower",
+        name: "Taj Mahal",
         clues: [
-            "I am an iron lattice tower.",
-            "I was built for a World's Fair.",
-            "I am named after my engineer."
+            "I am made entirely of white marble.",
+            "I was built as a symbol of eternal love.",
+            "I am one of the New Seven Wonders of the World."
         ],
         facts: [
-            "I was completed in 1889.",
-            "I am 324 meters tall.",
-            "I was originally meant to be temporary."
+            "I was completed in 1653.",
+            "I change colors throughout the day.",
+            "My construction took 22 years and 20,000 workers."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1543349689-9a4d426bee8e"
+        imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523"
     },
     {
         id: "2",
-        name: "Great Barrier Reef",
+        name: "Hawa Mahal",
         clues: [
-            "I am the world's largest living structure.",
-            "I can be seen from space.",
-            "I am home to thousands of species of marine life."
+            "I have 953 small windows.",
+            "I am known as the Palace of Winds.",
+            "I was built to allow royal women to observe street life."
         ],
         facts: [
-            "I am made up of over 2,900 individual reefs.",
-            "I stretch for over 2,300 kilometers along Australia's coast.",
-            "I am the world's largest coral reef system."
+            "I was built in 1799.",
+            "I am made of red and pink sandstone.",
+            "My architecture is a blend of Hindu Rajput and Islamic Mughal styles."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1582967788606-a171c1080cb0"
+        imageUrl: "https://images.unsplash.com/photo-1599661046289-e31897846e41"
     },
     {
         id: "3",
-        name: "Sahara Desert",
+        name: "Kerala Backwaters",
         clues: [
-            "I am the world's largest hot desert.",
-            "My dunes can reach heights of 180 meters.",
-            "I cover most of North Africa."
+            "I am a network of lagoons, lakes, and canals.",
+            "I run parallel to the Arabian Sea coast.",
+            "I am famous for houseboat cruises."
         ],
         facts: [
-            "I am almost as large as the United States.",
-            "My climate can shift from extreme heat to freezing cold in one day.",
-            "I have grown by 10% since 1920."
+            "I stretch for over 900 kilometers.",
+            "I am home to unique aquatic life.",
+            "I am called the 'Venice of the East'."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1509234795523-0e4129071a1c"
+        imageUrl: "https://images.unsplash.com/photo-1593693397690-362cb9666fc2"
     },
     {
         id: "4",
-        name: "Niagara Falls",
+        name: "Golden Temple",
         clues: [
-            "I am a set of three waterfalls on the border of two countries.",
-            "I produce enough mist to be seen from space.",
-            "My roar can be heard from miles away."
+            "I am covered in gold leaf.",
+            "I am surrounded by a sacred pool.",
+            "I am the holiest shrine in Sikhism."
         ],
         facts: [
-            "I move backward at a rate of about one foot per year.",
-            "About 750,000 gallons of water flow over me each second.",
-            "The first person to survive going over me did so in a barrel."
+            "I was completed in 1604.",
+            "My kitchen serves free meals to 100,000 people daily.",
+            "I have entrances in all four directions symbolizing openness to all."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1489447068241-b3490214e879"
+        imageUrl: "https://images.unsplash.com/photo-1583309217394-d35d51b3496b"
     },
     {
         id: "5",
-        name: "Mount Fuji",
+        name: "Varanasi Ghats",
         clues: [
-            "I am Japan's highest mountain.",
-            "I am a perfectly shaped volcano.",
-            "My snow-capped peak is a symbol of my country."
+            "I am a series of steps leading to a holy river.",
+            "I am one of the oldest continuously inhabited cities.",
+            "I am considered the spiritual capital of India."
         ],
         facts: [
-            "I last erupted in 1707.",
-            "I am considered one of Japan's three sacred mountains.",
-            "My official climbing season is only two months long."
+            "I have 88 ghats in total.",
+            "I host the famous Ganga Aarti every evening.",
+            "I have been a cultural center for over 3000 years."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1490806843957-31f4c9a91c65"
+        imageUrl: "https://images.unsplash.com/photo-1561361058-c24cecae35ca"
+    },
+    {
+        id: "6",
+        name: "Ajanta Caves",
+        clues: [
+            "I am rock-cut cave monuments.",
+            "I contain ancient Buddhist artwork.",
+            "I was forgotten for over 1000 years."
+        ],
+        facts: [
+            "I was carved between the 2nd century BCE and 6th century CE.",
+            "I consist of 30 caves.",
+            "My paintings depict the Jataka tales."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951"
+    },
+    {
+        id: "7",
+        name: "Rann of Kutch",
+        clues: [
+            "I am one of the largest salt deserts in the world.",
+            "I turn into a shallow marsh during monsoon.",
+            "I host a famous cultural festival in winter."
+        ],
+        facts: [
+            "I span over 7,500 square kilometers.",
+            "I am home to unique wildlife including flamingos.",
+            "My white salt desert glows under the full moon."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1593096490736-05d0e65488c4"
+    },
+    {
+        id: "8",
+        name: "Mysore Palace",
+        clues: [
+            "I am illuminated by thousands of bulbs.",
+            "I blend Indo-Saracenic architecture.",
+            "I was the seat of the Wodeyar dynasty."
+        ],
+        facts: [
+            "I was completed in 1912.",
+            "I have over 2.7 million visitors annually.",
+            "My durbar hall has ornate ceiling made of stained glass."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1628097928000-e67bd3949196"
     },
     {
         id: "9",
-        name: "Angkor Wat",
+        name: "Valley of Flowers",
         clues: [
-            "I am the world's largest religious monument.",
-            "Hidden in the jungle for centuries, I was rediscovered by French explorers.",
-            "My image appears on my country's national flag."
+            "I am a UNESCO World Heritage Site.",
+            "I bloom with hundreds of different flower species.",
+            "I am nestled in the Western Himalayas."
         ],
         facts: [
-            "I was originally built as a Hindu temple in the 12th century.",
-            "My construction used more stone than all Egyptian pyramids combined.",
-            "I face west instead of east, unlike most Khmer temples."
+            "I was discovered in 1931.",
+            "I am home to rare and endangered animals.",
+            "I am only accessible during summer months."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1558441440-d4111d18d48f"
+        imageUrl: "https://images.unsplash.com/photo-1627483297886-49710ae1fc22"
     },
     {
         id: "10",
-        name: "Mount Everest",
+        name: "Khajuraho Temples",
         clues: [
-            "I am the highest point on Earth above sea level.",
-            "My peak is in the death zone where oxygen is scarce.",
-            "Two nations share my summit."
+            "I am known for intricate sculptures.",
+            "I was built by Chandela dynasty.",
+            "I combine architecture and art masterfully."
         ],
         facts: [
-            "I grow about 4 millimeters (0.16 inches) higher every year.",
-            "My peak is over 29,000 feet (8,848 meters) above sea level.",
-            "I was named after Sir George Everest in 1865."
+            "I was built between 950 and 1050 CE.",
+            "Only 20 of my original 85 temples remain.",
+            "My temples are dedicated to both Hinduism and Jainism."
         ],
-        imageUrl: "https://images.unsplash.com/photo-1516911046066-4f7862c97595"
+        imageUrl: "https://images.unsplash.com/photo-1624867457543-0c5d25c83704"
     },
     {
         id: "11",
@@ -333,21 +378,6 @@ export const mockDestinations: Destination[] = [
     },
     {
         id: "26",
-        name: "Taj Mahal",
-        clues: [
-            "I am a white marble mausoleum.",
-            "I was built by an emperor in memory of his wife.",
-            "I am perfectly symmetrical."
-        ],
-        facts: [
-            "My construction took 22 years and 20,000 workers.",
-            "My marble changes color throughout the day.",
-            "My minarets are slightly tilted outward to protect the main structure if they fall."
-        ],
-        imageUrl: "https://images.unsplash.com/photo-1564507592333-c60657eea523"
-    },
-    {
-        id: "27",
         name: "Moai Statues",
         clues: [
             "I am a group of giant stone heads.",
@@ -362,7 +392,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1597895139270-a5dee112224f"
     },
     {
-        id: "28",
+        id: "27",
         name: "Great Wall of China",
         clues: [
             "I am the longest wall in the world.",
@@ -377,7 +407,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d"
     },
     {
-        id: "29",
+        id: "28",
         name: "Forbidden City",
         clues: [
             "I am the world's largest palace complex.",
@@ -392,7 +422,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1584646098378-0874589d76b1"
     },
     {
-        id: "30",
+        id: "29",
         name: "Iguazu Falls",
         clues: [
             "I am a system of 275 waterfalls.",
@@ -407,7 +437,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1583459094467-e0db130c0dea"
     },
     {
-        id: "31",
+        id: "30",
         name: "Zhangjiajie",
         clues: [
             "My sandstone pillars inspired the movie Avatar.",
@@ -422,7 +452,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1513415277900-a62401e19be4"
     },
     {
-        id: "32",
+        id: "31",
         name: "Pamukkale",
         clues: [
             "I am a series of white terraces filled with mineral water.",
@@ -437,7 +467,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1524231757912-21f4fe3a7200"
     },
     {
-        id: "33",
+        id: "32",
         name: "Banff National Park",
         clues: [
             "I am Canada's oldest national park.",
@@ -452,7 +482,7 @@ export const mockDestinations: Destination[] = [
         imageUrl: "https://images.unsplash.com/photo-1561134643-668f9057cce4"
     },
     {
-        id: "34",
+        id: "33",
         name: "Halong Bay",
         clues: [
             "I am a bay with thousands of limestone islands.",
@@ -465,8 +495,157 @@ export const mockDestinations: Destination[] = [
             "Local legend says I was created by dragons spitting jewels."
         ],
         imageUrl: "https://images.unsplash.com/photo-1528127269322-539801943592"
+    },
+    {
+        id: "34",
+        name: "Hampi",
+        clues: [
+            "I am a UNESCO World Heritage site with ruins of a medieval empire.",
+            "My boulder-strewn landscape is unique in the world.",
+            "I was once the world's second-largest medieval-era city."
+        ],
+        facts: [
+            "I was the capital of the Vijayanagara Empire.",
+            "My ruins spread over 4,100 hectares.",
+            "My temples showcase spectacular Dravidian architecture."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1600100397608-f010a8ff7e8a"
+    },
+    {
+        id: "35",
+        name: "Sundarbans",
+        clues: [
+            "I am the world's largest mangrove forest.",
+            "I am home to the Royal Bengal Tiger.",
+            "I span across two countries in South Asia."
+        ],
+        facts: [
+            "I am a network of 104 islands.",
+            "My name means 'beautiful forest' in Bengali.",
+            "I protect the region from cyclones and tsunamis."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1624956578878-21fe6b0a3b3b"
+    },
+    {
+        id: "36",
+        name: "Ellora Caves",
+        clues: [
+            "I showcase three different religions in rock-cut architecture.",
+            "I house the largest single monolithic excavation in the world.",
+            "I was built between the 6th and 10th centuries CE."
+        ],
+        facts: [
+            "I contain 34 monasteries and temples.",
+            "My Kailasa Temple was carved from a single rock.",
+            "I represent the epitome of Indian rock-cut architecture."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1621996659490-3275b4d0d951"
+    },
+    {
+        id: "37",
+        name: "Goa Beaches",
+        clues: [
+            "I am India's smallest state with beautiful coastlines.",
+            "I blend Portuguese heritage with Indian culture.",
+            "I am famous for my golden sand and beach shacks."
+        ],
+        facts: [
+            "I have over 50 distinct beaches.",
+            "My architecture shows 450 years of Portuguese influence.",
+            "I was a major spice trading center historically."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1512343879784-a960bf40e7f2"
+    },
+    {
+        id: "38",
+        name: "Ladakh",
+        clues: [
+            "I am known as 'Little Tibet'.",
+            "I have the highest motorable pass in the world.",
+            "My monasteries are perched on hilltops."
+        ],
+        facts: [
+            "I am home to the world's highest saltwater lake.",
+            "My Magnetic Hill appears to defy gravity.",
+            "My capital is one of the highest cities in the world."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1593939535589-8356e421b3cc"
+    },
+    {
+        id: "39",
+        name: "Kaziranga National Park",
+        clues: [
+            "I am home to two-thirds of the world's one-horned rhinoceros.",
+            "I lie in the floodplains of the Brahmaputra River.",
+            "I am a UNESCO World Heritage Site in Northeast India."
+        ],
+        facts: [
+            "I have the highest density of tigers among protected areas.",
+            "I am also home to wild water buffaloes and elephants.",
+            "My landscape includes grasslands, forests, and wetlands."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1624956578878-21fe6b0a3b3b"
+    },
+    {
+        id: "40",
+        name: "Meenakshi Temple",
+        clues: [
+            "I am dedicated to a divine couple.",
+            "My gopurams are covered with colorful sculptures.",
+            "I am located in the temple city of Tamil Nadu."
+        ],
+        facts: [
+            "I have 14 magnificent towers.",
+            "My halls contain 1000 pillars.",
+            "My architecture represents Dravidian temple style at its finest."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1623944890676-9d5e7d7dd248"
+    },
+    {
+        id: "41",
+        name: "Konark Sun Temple",
+        clues: [
+            "I am designed as a massive chariot with wheels.",
+            "I am dedicated to the Sun God.",
+            "My walls are covered with intricate carvings."
+        ],
+        facts: [
+            "My wheels serve as sundials.",
+            "I was built in the 13th century.",
+            "I am also known as the Black Pagoda."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1623944890676-9d5e7d7dd248"
+    },
+    {
+        id: "42",
+        name: "Thar Desert",
+        clues: [
+            "I am India's largest desert.",
+            "I am known for my colorful culture and festivals.",
+            "My sand dunes stretch for miles."
+        ],
+        facts: [
+            "I cover over 200,000 square kilometers.",
+            "My cities are known as oasis of culture.",
+            "I am home to unique desert wildlife and nomadic tribes."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1593096490736-05d0e65488c4"
+    },
+    {
+        id: "43",
+        name: "Darjeeling",
+        clues: [
+            "I am famous for my tea plantations.",
+            "My toy train is a UNESCO World Heritage site.",
+            "I offer views of the world's third-highest peak."
+        ],
+        facts: [
+            "My tea is known as the 'Champagne of Teas'.",
+            "My Himalayan Railway was built in 1881.",
+            "I was once a summer resort for the British Raj."
+        ],
+        imageUrl: "https://images.unsplash.com/photo-1544233726-9f1d2b27be8b"
     }
-    // ... Continue with more destinations
 ];
 
 export default mockDestinations; 
